@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Download File using PHP</title>
+</head>
+<body>
+
+<h2>Download File from HERE : </h2>
+<a href="download.php?file=image.jpg">click HERE</a>
+
+
+
+</body>
+</html>
+
+<?php 
+if(!empty($_GET['file']))
+{
+	$filename = basename($_GET['file']);
+	$filepath = 'destination/' . $filename;
+	if(!empty($filename) && file_exists($filepath)){
+
+//Define Headers
+		header("Cache-Control: public");
+		header("Content-Description: FIle Transfer");
+		header("Content-Disposition: attachment; filename=$filename");
+		header("Content-Type: application/zip");
+		header("Content-Transfer-Emcoding: binary");
+
+		readfile($filepath);
+		exit;
+
+	}
+	else{
+		echo "This File Does not exist.";
+	}
+}
+
+ ?>
+
+  //Link to download file...
+ $url = "http://example.com/test.php";
+
+ //Code to get the file...
+ $data = file_get_contents($url);
+
+ //save as?
+ $filename = "test.html";
+
+ //save the file...
+ $fh = fopen($filename,"w");
+ fwrite($fh,$data);
+ fclose($fh);
+
+ //display link to the file you just saved...
+ echo "<a href='".$filename."'>Click Here</a> to download the file...";
+
+ $val=$_POST['val'];
+$intval=(int)$val;
+$handle = fopen($file1,'r'); 
+        $f = 1; //new file number
+        while(!feof($handle))
+        {
+            $newfile = fopen('split/'.$f.'.txt','w'); //create new file to write to with file number
+            for($i = 1; $i <= $intval; $i++) //for 5000 lines
+            {
+                $import = fgets($handle);
+                //print_r($import);
+                fwrite($newfile,$import);
+                $result='./split/new_file_'.$i.'';
+			    file_put_contents($result,$newfile);
+    			echo '<h4 align="center"><a href="download.php?file='.$result.'" >'.$result.'</a></h4>';
+    
+                if(feof($handle))
+                {break;} //If file ends, break loop
+            }
+            fclose($newfile);
+
+            $f++; //Increment newfile number
+        }
+        fclose($handle);
+}
+
+$i = 1;
+$fp = fopen($file1,'r');
+while(! feof($fp)) {
+    $contents = stream_get_line($fp,1000,"\n");
+    //file_put_contents('new_file_'.$i.'.txt',$contents);
+    $result='./split/new_file_'.$i.'';
+
+    file_put_contents($result,$contents);
+    echo '<h4 align="center"><a href="download.php?file='.$result.'" >'.$result.'</a></h4>';
+    $i++;
+    
+}
+<input type='file' name='upload[]' value="demo.txt" multiple>
+    <input type="submit" value="Show names" name="sub" onclick="return onSubmit()"/>
+if( isset($_POST['sub'])) {
+    //$files = array_filter($_FILES['upload']['name']); //something like that to be used before processing files.
+
+// Count # of uploaded files in array
+$total = count($_FILES['upload']['name']);
+
+// Loop through each file
+for( $i=0 ; $i < $total ; $i++ ) {
+
+  //Get the temp file path
+  $tmpFilePath = $_FILES['upload']['tmp_name'][$i];
+
+  //Make sure we have a file path
+  if ($tmpFilePath != ""){
+    //Setup our new file path
+    $newFilePath = "./uploads/" . $_FILES['upload']['name'][$i];
+
+    //Upload the file into the temp dir
+    if(move_uploaded_file($tmpFilePath, $newFilePath)) {
+      
+
+    }
+  }
+}
+}
+
+$i=1;
+$handle = fopen($file1,'r'); 
+        $f = 1; //new file number
+        while(!feof($handle))
+
+        {
+            $newfile = fopen('split/'.$f.'.txt','w+'); //create new file to write to with file number
+            for($i = 1; $i <= $intval; $i++) //for 5000 lines
+            {
+                $import = fgets($handle);
+                //print_r($import);
+                fwrite($newfile,$import);
+                if(feof($handle))
+                {break;} //If file ends, break loop
+            }
+            $result='./split/new_file_'.$f.'';
+            file_put_contents($result,$newfile);
+            echo '<h4 align="center"><a href="download.php?file='.$result.'" >'.$result.'</a></h4>'; 
+            $f++; //Increment newfile number
+        }
+        fclose($handle);
+
+
+}
+
+
+https://i.imgur.com/L3dKm1k.jpeg
+https://i.imgur.com/rJNqF06.jpeg
+https://i.imgur.com/rJNqF06.jpeg
+https://i.imgur.com/tLA9Nsl.jpeg
+https://picsum.photos/id/12/200/300
+https://picsum.photos/id/13/200/300
+https://picsum.photos/id/14/200/300
